@@ -15,27 +15,7 @@
 
   <body ng-app='app'>
     <div ng-controller="controller as ctrl" class='container'>
-      <div class='row'>
-        <div class="col-sm-6 col-md-4">
-        <ul ui-sortable="sortableOptions" ng-model="list" class="list-group ibn-sortable">
-            <li ng-repeat="item in list" class='list-group-item'>
-              <span ng-click='deleteItem(item)' class="btn btn-danger btn-xs pull-right glyphicon glyphicon-trash"></span>
-              {{item.text}}
-            </li>
-          </ul>
-        </div>
-
-        <div class="col-sm-6 col-md-4" >
-          <ul class="list-group ibn-sortable">
-            <li ng-repeat="entry in otherList" class="list-group-item">
-              <span ng-click="addEntry(entry)" class='pull-right btn btn-primary btn-xs glyphicon glyphicon-plus'></span>
-              {{entry.text}}
-            </li>
-          </ul>
-        </div>
-
-        <div class="clear"></div>
-      </div>
+      <ibn-sortable input-list='list' output-list='otherList'></ibn-sortable>
     </div>
   </body>
   
@@ -47,18 +27,18 @@
       border: 3px dotted lightgrey;
     }
 
-    .ibn-sortable {
+    .sortable-list {
       list-style-type: none; margin: 0; padding: 0; width: 60%;
     }
 
     .list-group-item.ng-enter {
-      -webkit-animation: bounceIn 2s; /* Chrome, Safari, Opera */
-      animation: bounceIn 2s;
+      -webkit-animation: bounceIn 0.5s; /* Chrome, Safari, Opera */
+      animation: bounceIn 0.5s;
     }
 
     .list-group-item.ng-leave {
-      -webkit-animation: bounceOut 1s; /* Chrome, Safari, Opera */
-      animation: bounceOut 1s;
+      -webkit-animation: bounceOut 0.5s; /* Chrome, Safari, Opera */
+      animation: bounceOut 0.5s;
     }
   </style>
 
@@ -81,32 +61,41 @@
         }
         
         $scope.list = tmpList;
-        
-        $scope.sortableOptions = {
-          placeholder: 'sortable-placeholder',
-          stop: function(e, ui) {
-            $scope.list.map(function(i){
-              return i.value;
-            });
+      })
+      .directive('ibnSortable', function() {
+        return {
+          restrict: 'E',
+          templateUrl: 'app/ibn-sortable.html',
+          scope: {
+            list1: '=inputList',
+            list2: '=outputList'
           },
+          link: function(scope, element, attr) {
+            scope.options = {
+              placeholder: 'sortable-placeholder',
+              stop: function(e, ui) {
+                scope.list1.map(function(i){
+                  return i.value;
+                });
+              },
+            };
 
-        };
+            scope.addEntry = function(item) {
+              scope.list1.push(item);
+              removeItem('list2', item);
+            };
 
-        $scope.addEntry = function(item) {
-          $scope.list.push(item);
-          removeItem('otherList', item);
-        };
+            function removeItem(list, item) {
+              var index = scope[list].indexOf(item);
+              scope[list].splice(index, 1);
+            }
 
-        function removeItem(list, item) {
-          var index = $scope[list].indexOf(item);
-          $scope[list].splice(index, 1);
+            scope.deleteItem = function(item) {
+              scope.list2.push(item);
+              removeItem('list1', item);
+            }; 
+          }
         }
-
-        $scope.deleteItem = function(item) {
-          $scope.otherList.push(item);
-          removeItem('list', item);
-        }
-
       })
   </script>
 

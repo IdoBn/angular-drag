@@ -1,0 +1,19 @@
+  <div class='row'>
+    <div class="col-sm-6 col-md-4">
+    <ul ui-sortable="options" ng-model="list1" class="list-group sortable-list">
+        <li ng-repeat="item in list1" class='list-group-item'>
+          <span ng-click='deleteItem(item)' class="btn btn-danger btn-xs pull-right glyphicon glyphicon-trash"></span>
+          {{item.text}}
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-sm-6 col-md-4" >
+      <ul class="list-group sortable-list">
+        <li ng-repeat="entry in list2" class="list-group-item">
+          <span ng-click="addEntry(entry)" class='pull-right btn btn-primary btn-xs glyphicon glyphicon-plus'></span>
+          {{entry.text}}
+        </li>
+      </ul>
+    </div>
+  </div>

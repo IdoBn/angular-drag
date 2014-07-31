@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>jQuery UI Sortable - Default functionality</title>
+    <link rel="stylesheet" href="app/bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="app/bower_components/animate.css/animate.css">
+    <script src="app/bower_components/jquery/dist/jquery.js"></script>
+    <script src="app/bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="app/bower_components/angular/angular.js"></script>
+    <script src="app/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="app/bower_components/ui-sortable/ui-sortable.js"></script>
+  </head>
+
+  <body ng-app='app'>
+    <div ng-controller="controller as ctrl" class='container'>
+      <div class='row'>
+        <div class="col-sm-6 col-md-4">
+        <ul ui-sortable="sortableOptions" ng-model="list" class="list-group ibn-sortable">
+            <li ng-repeat="item in list" class='list-group-item'>
+              <span ng-click='deleteItem(item)' class="pull-right glyphicon glyphicon-trash"></span>
+              {{item.text}}
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-sm-6 col-md-4" >
+          <ul class="list-group ibn-sortable">
+            <li ng-repeat="entry in otherList" class="list-group-item">
+              <span ng-click="addEntry(entry)" class='pull-right glyphicon glyphicon-plus'></span>
+              {{entry.text}}
+            </li>
+          </ul>
+        </div>
+
+        <div class="clear"></div>
+      </div>
+    </div>
+  </body>
+  
+  <style>
+    .sortable-placeholder { 
+      background-color: white; 
+      height: 3em; 
+      line-height: 1.7em; 
+      border: 3px dotted lightgrey;
+    }
+
+    .ibn-sortable {
+      list-style-type: none; margin: 0; padding: 0; width: 60%;
+    }
+
+    .list-group-item.ng-enter {
+      -webkit-animation: bounceIn 2s; /* Chrome, Safari, Opera */
+      animation: bounceIn 2s;
+    }
+
+    .list-group-item.ng-leave {
+      -webkit-animation: bounceOut 1s; /* Chrome, Safari, Opera */
+      animation: bounceOut 1s;
+    }
+  </style>
+
+  <script>
+    angular.module('app', ['ui.sortable', 'ngAnimate'])
+      .controller('controller', function($scope){
+
+        $scope.otherList = [{text: 'Item 69', value: 69}, 
+                                {text: 'Item 56', value: 56},
+                                {text: 'Item 123', value: 123},
+                                {text: 'Item 99', value: 99}];
+
+        var tmpList = [];
+  
+        for (var i = 1; i <= 6; i++){
+          tmpList.push({
+            text: 'Item ' + i,
+            value: i
+          });
+        }
+        
+        $scope.list = tmpList;
+        
+        $scope.sortableOptions = {
+          placeholder: 'sortable-placeholder',
+          stop: function(e, ui) {
+            $scope.list.map(function(i){
+              return i.value;
+            });
+          },
+
+        };
+
+        $scope.addEntry = function(item) {
+          $scope.list.push(item);
+          removeItem('otherList', item);
+        };
+
+        function removeItem(list, item) {
+          var index = $scope[list].indexOf(item);
+          $scope[list].splice(index, 1);
+        }
+
+        $scope.deleteItem = function(item) {
+          $scope.otherList.push(item);
+          removeItem('list', item);
+        }
+
+      })
+  </script>
+
+</html>

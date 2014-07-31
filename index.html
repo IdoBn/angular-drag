@@ -19,7 +19,7 @@
         <div class="col-sm-6 col-md-4">
         <ul ui-sortable="sortableOptions" ng-model="list" class="list-group ibn-sortable">
             <li ng-repeat="item in list" class='list-group-item'>
-              <span ng-click='deleteItem(item)' class="pull-right glyphicon glyphicon-trash"></span>
+              <span ng-click='deleteItem(item)' class="btn btn-danger btn-xs pull-right glyphicon glyphicon-trash"></span>
               {{item.text}}
             </li>
           </ul>
@@ -28,7 +28,7 @@
         <div class="col-sm-6 col-md-4" >
           <ul class="list-group ibn-sortable">
             <li ng-repeat="entry in otherList" class="list-group-item">
-              <span ng-click="addEntry(entry)" class='pull-right glyphicon glyphicon-plus'></span>
+              <span ng-click="addEntry(entry)" class='pull-right btn btn-primary btn-xs glyphicon glyphicon-plus'></span>
               {{entry.text}}
             </li>
           </ul>

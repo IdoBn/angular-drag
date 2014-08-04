@@ -1,6 +1,6 @@
   <div class='row'>
     <div class="col-sm-6 col-md-4">
-    <ul ui-sortable="options" ng-model="list1" class="list-group sortable-list">
+      <ul ng-sortable="list1" class="list-group sortable-list" data-index='{{$index}}'>
         <li ng-repeat="item in list1" class='list-group-item'>
           <span ng-click='deleteItem(item)' class="btn btn-danger btn-xs pull-right glyphicon glyphicon-trash"></span>
           {{item.text}}

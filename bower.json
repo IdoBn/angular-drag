@@ -16,11 +16,7 @@
   ],
   "dependencies": {
     "angular": "~1.2.21",
-    "bootstrap": "~3.2.0",
-    "jquery-ui": "~1.11.0",
-    "jquery": "~2.1.1",
-    "animate.css": "~3.2.0",
-    "angular-animate": "~1.2.21"
+    "bootstrap": "~3.2.0"
   },
   "homepage": "https://github.com/IdoBn/angular-drag"
 }

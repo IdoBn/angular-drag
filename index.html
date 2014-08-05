@@ -5,19 +5,15 @@
     <meta charset="utf-8" />
     <title>angular drag</title>
     <link rel="stylesheet" href="app/bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="app/bower_components/animate.css/animate.css">
-    <!-- <link type="text/css" rel="stylesheet" href="app/bower_components/angular-sortable/example/angular-sortable.css"> -->
-    <!-- // <script src="app/bower_components/jquery/dist/jquery.js"></script> -->
-    <!-- // <script src="app/bower_components/jquery-ui/jquery-ui.js"></script> -->
     <script src="app/bower_components/angular/angular.js"></script>
-    <script src="app/bower_components/angular-animate/angular-animate.js"></script>
-    <script src="app/bower_components/angular-sortable-view.js"></script>
-    <!-- // <script src="app/bower_components/ui-sortable/ui-sortable.js"></script> -->
+    <script src="/angular-sortable-view.js"></script>
   </head>
 
   <body ng-app='app'>
     <div ng-controller="controller" class='container'>
-      <ibn-sortable input-list='otherList' output-list='list'></ibn-sortable>
+      <div class='panel'>
+        <ibn-sortable input-list='otherList' output-list='list'></ibn-sortable>
+      </div>
     </div>
   </body>
   
@@ -69,7 +65,7 @@
       .directive('ibnSortable', function() {
         return {
           restrict: 'E',
-          templateUrl: 'app/ibn-sortable.html',
+          templateUrl: 'ibn-sortable.html',
           scope: {
             inputList: '=inputList',
             outputList: '=outputList'

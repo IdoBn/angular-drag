@@ -1,19 +1,21 @@
-  <div class='row'>
-    <div class="col-sm-6 col-md-4">
-      <ul ng-sortable="list1" class="list-group sortable-list" data-index='{{$index}}'>
-        <li ng-repeat="item in list1" class='list-group-item'>
-          <span ng-click='deleteItem(item)' class="btn btn-danger btn-xs pull-right glyphicon glyphicon-trash"></span>
-          {{item.text}}
-        </li>
-      </ul>
-    </div>
-
-    <div class="col-sm-6 col-md-4" >
-      <ul class="list-group sortable-list">
-        <li ng-repeat="entry in list2" class="list-group-item">
-          <span ng-click="addEntry(entry)" class='pull-right btn btn-primary btn-xs glyphicon glyphicon-plus'></span>
-          {{entry.text}}
-        </li>
-      </ul>
-    </div>
+<div sv-root sv-on-sort='foo($partFrom, $partTo)' class='row'>
+  <div class='col-sm-6 col-md-4'>
+    <h1>Selected</h1>
+    <ul sv-part='outputList' class='list-group sortable-list'>
+      <li ng-repeat='item in outputList' sv-element class='list-group-item'>
+        <div sv-placeholder class='sortable-placeholder'></div>
+        {{item.text}}
+      </li>
+    </ul>
   </div>
+
+  <div class='col-sm-6 col-md-4' >
+    <h1>Unselected</h1>
+    <ul sv-part='inputList' class='list-group sortable-list'>
+      <li ng-repeat='item in inputList' sv-element class='list-group-item'>
+        <div sv-placeholder class='sortable-placeholder'></div>
+        {{item.text}}
+      </li>
+    </ul>
+  </div>
+</div>
